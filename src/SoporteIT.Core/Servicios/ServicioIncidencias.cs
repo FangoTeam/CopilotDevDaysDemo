@@ -10,6 +10,14 @@ public class ServicioIncidencias(IRepositorioIncidencias repositorio, TimeProvid
 
     public DateTimeOffset Ahora() => reloj.GetUtcNow();
 
+    public IReadOnlyList<Incidencia> Vencidas()
+    {
+        var ahora = reloj.GetUtcNow();
+        return repositorio.Listar()
+            .Where(i => i.Estado != EstadoIncidencia.Resuelta && PoliticaSla.Vencimiento(i) < ahora)
+            .ToList();
+    }
+
     public Incidencia Crear(string titulo, string aula, Prioridad prioridad)
     {
         var incidencia = new Incidencia

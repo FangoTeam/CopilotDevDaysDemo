@@ -27,6 +27,7 @@ En Development la hora está simulada (lunes 9/11/2026, 12:30 Madrid) y se carga
 |---|---|---|
 | GET | /panel | Panel de incidencias con su estado de SLA |
 | GET | /incidencias | Lista las incidencias |
+| GET | /incidencias/vencidas | Incidencias no resueltas con el SLA vencido (solo horario lectivo) |
 | GET | /incidencias/{id} | Detalle |
 | POST | /incidencias | Crea `{ "titulo", "aula", "prioridad" }` |
 | POST | /incidencias/{id}/resolver | Marca como resuelta |

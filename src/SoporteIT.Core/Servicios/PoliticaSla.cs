@@ -13,7 +13,7 @@ public static class PoliticaSla
         _ => TimeSpan.FromHours(24)
     };
 
-    // TODO: ¿de verdad contamos las noches y los fines de semana?
+    /// <summary>El plazo solo cuenta el horario lectivo (L-V, 08:00-15:00, hora de Madrid).</summary>
     public static DateTimeOffset Vencimiento(Incidencia incidencia) =>
-        incidencia.CreadaEn + Objetivo(incidencia.Prioridad);
+        HorarioLectivo.SumarHorasLectivas(incidencia.CreadaEn, Objetivo(incidencia.Prioridad));
 }

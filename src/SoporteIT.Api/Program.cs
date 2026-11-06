@@ -27,6 +27,8 @@ var incidencias = app.MapGroup("/incidencias");
 
 incidencias.MapGet("/", (ServicioIncidencias servicio) => servicio.Listar());
 
+incidencias.MapGet("/vencidas", (ServicioIncidencias servicio) => servicio.Vencidas());
+
 incidencias.MapGet("/{id:int}", (int id, ServicioIncidencias servicio) =>
     servicio.Obtener(id) is { } incidencia
         ? Results.Ok(incidencia)
@@ -46,9 +48,9 @@ incidencias.MapPost("/{id:int}/resolver", (int id, ServicioIncidencias servicio)
         ? Results.NoContent()
         : Results.NotFound(new { error = "Incidencia no encontrada" }));
 
-const string ClaveAdmin = "soporte-2024-admin"; // TODO: mover a configuración
+var claveAdmin = app.Configuration["Admin:ClaveApi"];
 app.MapGet("/admin/exportar", (HttpRequest peticion, ServicioIncidencias servicio) =>
-    peticion.Headers["X-Api-Key"] == ClaveAdmin
+    !string.IsNullOrEmpty(claveAdmin) && peticion.Headers["X-Api-Key"] == claveAdmin
         ? Results.Ok(servicio.Listar())
         : Results.Unauthorized());
 

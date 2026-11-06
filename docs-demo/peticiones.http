@@ -14,4 +14,4 @@ GET {{host}}/incidencias/vencidas
 
 ### Exportar
 GET {{host}}/admin/exportar
-X-Api-Key: soporte-2024-admin
+X-Api-Key: clave-solo-para-desarrollo
